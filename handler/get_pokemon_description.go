@@ -9,7 +9,14 @@ import (
 	"github.com/tgmendes/shakespeare-dex/web"
 )
 
-func (p *shakespeareDexAPI) handleGetPokemon(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+// PokemonDescriptionResponse represents the response returned from the get pokemon description handler.
+type PokemonDescriptionResponse struct {
+	Name        string `json:"name"`
+	Description string `json:"description"`
+}
+
+func (p *shakespeareDexAPI) handleGetPokemonDescription(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+
 	pokemonName := ps.ByName("name")
 	if pokemonName == "" {
 		web.RespondError(w, "no pokemon name given", http.StatusBadRequest)
@@ -25,5 +32,10 @@ func (p *shakespeareDexAPI) handleGetPokemon(w http.ResponseWriter, r *http.Requ
 		web.RespondError(w, "the server encountered a problem and could not complete the request", http.StatusInternalServerError)
 	}
 
-	web.RespondJSON(w, result, http.StatusOK)
+	resp := PokemonDescriptionResponse{
+		Name:        pokemonName,
+		Description: result,
+	}
+
+	web.RespondJSON(w, resp, http.StatusOK)
 }

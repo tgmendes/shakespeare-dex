@@ -24,7 +24,7 @@ func ShakespeareDexAPI() http.Handler {
 		pokeapiClient:     pokeapi.NewClient(),
 		shakespeareClient: shakespeare.NewClient(),
 	}
-	router.GET("/pokemon/:name", p.handleGetPokemon)
+	router.GET("/pokemon/:name", p.handleGetPokemonDescription)
 
 	return router
 }
