@@ -60,7 +60,7 @@ func (c *Client) Translate(text string) (string, error) {
 	if resp.StatusCode != http.StatusOK {
 		return "", &web.HTTPError{
 			StatusCode: resp.StatusCode,
-			Err:        fmt.Errorf("error calling :%s", fullPath), // TODO - include the error from the API too
+			Err:        fmt.Errorf("error calling: %s", fullPath),
 		}
 	}
 
