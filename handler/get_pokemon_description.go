@@ -20,6 +20,7 @@ func (p *shakespeareDexAPI) handleGetPokemonDescription(w http.ResponseWriter, r
 	pokemonName := ps.ByName("name")
 	if pokemonName == "" {
 		web.RespondError(w, "no pokemon name given", http.StatusBadRequest)
+		return
 	}
 
 	result, err := domain.ShakespeareDescriptionForPokemon(pokemonName, p.pokeapiClient, p.shakespeareClient)
@@ -28,8 +29,10 @@ func (p *shakespeareDexAPI) handleGetPokemonDescription(w http.ResponseWriter, r
 		httpErr, ok := err.(*web.HTTPError)
 		if ok {
 			p.buildClientErrorResponse(w, pokemonName, httpErr)
+			return
 		}
 		web.RespondError(w, "the server encountered a problem and could not complete the request", http.StatusInternalServerError)
+		return
 	}
 
 	resp := PokemonDescriptionResponse{
