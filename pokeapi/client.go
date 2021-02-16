@@ -102,7 +102,8 @@ func (s *Species) getEnglishDescriptions() []string {
 
 // cleanDescription strips out any newline or \f characters from the given text
 func cleanDescription(text string) string {
-	t := strings.Replace(text, "\n", " ", -1)
-	t = strings.Replace(t, "\f", " ", -1)
-	return t
+	text = strings.ReplaceAll(text, "\n", " ")
+	text = strings.ReplaceAll(text, "\f", "")
+	text = strings.ReplaceAll(text, "  ", " ")
+	return text
 }
