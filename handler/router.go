@@ -3,7 +3,6 @@ package handler
 import (
 	"fmt"
 	"net/http"
-	"os"
 
 	"github.com/julienschmidt/httprouter"
 	"github.com/tgmendes/shakespeare-dex/domain"
@@ -18,7 +17,7 @@ type shakespeareDexAPI struct {
 }
 
 // ShakespeareDexAPI defines and returns the handler for the Pokepeare API.
-func ShakespeareDexAPI(shutdown chan os.Signal) http.Handler {
+func ShakespeareDexAPI() http.Handler {
 	router := httprouter.New()
 
 	p := shakespeareDexAPI{
